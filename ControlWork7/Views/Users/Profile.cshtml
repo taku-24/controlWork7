@@ -1,0 +1,36 @@
+@model ControlWork7.Models.User
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<h2>@Model.FirstName @Model.LastName</h2>
+<p>Email: @Model.Email</p>
+<p>Телефон: @Model.Phone</p>
+
+<h3 class="mt-4">Книги на руках</h3>
+
+@if (!Model.Issues.Any(i => i.ReturnedAt == null))
+{
+    <p>Нет активных книг.</p>
+}
+else
+{
+    <div class="row">
+        @foreach (var issue in Model.Issues.Where(i => i.ReturnedAt == null))
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="@issue.Book.CoverPath" class="card-img-top" style="height:220px; object-fit:cover;" alt="@issue.Book.Title" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@issue.Book.Title</h5>
+                        <p class="card-text text-muted">@issue.Book.Author</p>
+                        <form asp-controller="Issues" asp-action="Return" method="post" class="mt-auto">
+                            <input type="hidden" name="id" value="@issue.Id" />
+                            <button type="submit" class="btn btn-danger w-100">Сдать книгу</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

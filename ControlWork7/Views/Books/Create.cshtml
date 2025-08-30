@@ -1,0 +1,56 @@
+@model ControlWork7.Models.Book
+@{
+    ViewData["Title"] = "Добавить книгу";
+}
+
+<h2>Добавить книгу</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Author" class="form-label"></label>
+        <input asp-for="Author" class="form-control" />
+        <span asp-validation-for="Author" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Категория</label>
+        <select asp-for="CategoryId" class="form-select"
+                asp-items="@(ViewBag.Categories as IEnumerable<SelectListItem>)">
+            <option value="0">-- выберите категорию --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Year" class="form-label"></label>
+        <input asp-for="Year" type="number" class="form-control" />
+        <span asp-validation-for="Year" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CoverPath" class="form-label">Фото обложки (URL)</label>
+        <input asp-for="CoverPath" class="form-control" />
+        <span asp-validation-for="CoverPath" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

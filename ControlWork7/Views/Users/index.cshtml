@@ -1,0 +1,29 @@
+@model IEnumerable<Issue>
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Все выдачи";
+}
+
+<h2>Все выданные книги</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Книга</th>
+        <th>Пользователь</th>
+        <th>Выдана</th>
+        <th>Сдана</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var issue in Model)
+    {
+        <tr>
+            <td>@issue.Book?.Title</td>
+            <td>@issue.User?.FirstName @issue.User?.LastName (@issue.User?.Email)</td>
+            <td>@issue.IssuedAt.ToShortDateString()</td>
+            <td>@(issue.ReturnedAt?.ToShortDateString() ?? "На руках")</td>
+        </tr>
+    }
+    </tbody>
+</table>

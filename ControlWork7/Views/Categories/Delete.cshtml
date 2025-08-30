@@ -1,0 +1,8 @@
+@model ControlWork7.Models.Category
+@{ ViewData["Title"] = "Удалить категорию"; }
+<h3>Удалить категорию «@Model.Name»?</h3>
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button class="btn btn-danger" type="submit">Удалить</button>
+    <a asp-action="Index" class="btn btn-secondary">Отмена</a>
+</form>
